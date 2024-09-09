@@ -5,6 +5,7 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
+from scrapegraphai.graphs import SearchGraph
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -14,7 +15,7 @@ openai.api_key = os.getenv('OPENAI_API_KEY')
 semantic_scholar_api_key = os.getenv('SEMANTIC_SCHOLARE_API_KEY')
 
 if not semantic_scholar_api_key:
-    raise EnvironmentError("S2_API_KEY environment variable not set.")
+    raise EnvironmentError("SEMANTIC_SCHOLARE_API_KEY environment variable not set.")
 
 def extract_text_from_pdf(pdf_path):
     """
@@ -135,7 +136,39 @@ def check_reference_in_semantic_scholar(reference):
     if response.status_code == 200:
         return response.json()
     else:
-        return {"error": f"Error: {response.status_code}", "response": response.json()}
+        logging.debug(f"Reference not found in Semantic Scholar: {title}")
+        return check_reference_with_scrapegraph(title)
+
+def check_reference_with_scrapegraph(title):
+    """
+    Checks if a reference is present using ScrapeGraph.
+
+    Args:
+        title (str): The title of the reference to check.
+
+    Returns:
+        dict: The response data from ScrapeGraph.
+    """
+    logging.debug(f"Checking reference with ScrapeGraph: {title}")
+
+    openai_key = os.getenv("OPENAI_API_KEY")
+
+    graph_config = {
+        "llm": {
+            "api_key": openai_key,
+            "model": "openai/gpt-4",
+        },
+        "max_results": 2,
+        "verbose": True,
+    }
+
+    search_graph = SearchGraph(
+        prompt=f"Find information about the paper titled: {title}",
+        config=graph_config
+    )
+
+    result = search_graph.run()
+    return result
 
 def main():
     """
