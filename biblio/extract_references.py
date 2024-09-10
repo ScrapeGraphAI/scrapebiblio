@@ -19,9 +19,9 @@ def extract_references(text, model="gpt-4"):
         model=model,
         messages=[
             {"role": "system", "content": "You are a helpful assistant that extracts references from text."},
-            {"role": "user", "content": f"Extract all references from the following text and format them in a 
+            {"role": "user", "content": f"""Extract all references from the following text and format them in a 
              consistent manner:\n\n{text}\n\nFormat each reference as:\n1. \"Title\" - [Reference Number]\n2. 
-             \"Title\" - [Reference Number]\n..."}
+             \"Title\" - [Reference Number]\n..."""}
         ],
         max_tokens=4096,
         n=1,
