@@ -85,7 +85,3 @@ Main function that processes a PDF, extracts text, and saves the references.
 ## Usage
 
 To use the script, ensure you have the required environment variables set and run the script. The extracted references will be saved to a Markdown file named `references.md`.
-
-```python
-if __name__ == "__main__":
-    main()
