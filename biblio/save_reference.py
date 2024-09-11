@@ -4,9 +4,9 @@ save_references module
 import logging
 import logging
 
-def save_references(references:str, output_path:str)->str:
+def save_references(references:str, output_path:str):
     """
-    Saves the references to a file.
+    Saves the references to a file in .md format.
 
     Args:
         references (str): References to save.

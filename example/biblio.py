@@ -80,7 +80,9 @@ def extract_references(text, model="gpt-4"):
         str: Extracted references.
     """
     logging.debug("Starting extraction of references from text...")
-    response = openai.ChatCompletion.create(
+    client = openai.OpenAI(api_key=openai.api_key)
+
+    response = client.chat.completions.create(
         model=model,
         messages=[
             {"role": "system", "content": "You are a helpful assistant that extracts references from text."},
@@ -108,35 +110,39 @@ def save_references(references, output_path):
         file.write(references)
     logging.debug(f"References saved to {output_path}")
 
-def check_reference_in_semantic_scholar(reference):
+def check_reference(reference, use_semantic_scholar=True):
     """
-    Checks if a reference is present in the Semantic Scholar database.
+    Checks if a reference is present in the Semantic Scholar database or using ScrapeGraph.
 
     Args:
         reference (str): The reference to check.
+        use_semantic_scholar (bool): Whether to use Semantic Scholar or ScrapeGraph.
 
     Returns:
-        dict: The response data from the Semantic Scholar API.
+        dict: The response data from the Semantic Scholar API or ScrapeGraph.
     """
-    headers = {
-        "x-api-key": semantic_scholar_api_key
-    }
-
     title = reference.split('-')[0].strip()
 
-    response = requests.post(
-        'https://api.semanticscholar.org/graph/v1/paper/batch',
-        headers=headers,
-        json={
-            "ids": [title],
-            "fields": "referenceCount,citationCount,title"
+    if use_semantic_scholar:
+        headers = {
+            "x-api-key": semantic_scholar_api_key
         }
-    )
 
-    if response.status_code == 200:
-        return response.json()
+        response = requests.post(
+            'https://api.semanticscholar.org/graph/v1/paper/batch',
+            headers=headers,
+            json={
+                "ids": [title],
+                "fields": "referenceCount,citationCount,title"
+            }
+        )
+
+        if response.status_code == 200:
+            return response.json()
+        else:
+            logging.debug(f"Reference not found in Semantic Scholar: {title}")
+            return check_reference_with_scrapegraph(title)
     else:
-        logging.debug(f"Reference not found in Semantic Scholar: {title}")
         return check_reference_with_scrapegraph(title)
 
 def check_reference_with_scrapegraph(title):
@@ -188,6 +194,13 @@ def main():
         file.write(f"# References\n\n{references}")
 
     logging.debug(f"References saved to {references_output_path}")
+
+    # Check references using ScrapeGraph
+    for reference in references.split('\n'):
+        if reference.strip():
+            result = check_reference(reference, use_semantic_scholar=False)
+            logging.debug(f"Reference check result: {result}")
+
     logging.debug("Processing completed.")
 
 if __name__ == "__main__":

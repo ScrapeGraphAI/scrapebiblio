@@ -3,7 +3,7 @@ search_in_semantic_scholar module
 """
 import requests
 
-def check_reference_in_semantic_scholar(reference:str, api_key:str)-> str:
+def check_reference(reference:str, api_key:str)->str:
     """
     Checks if a reference is present in the Semantic Scholar database.
 

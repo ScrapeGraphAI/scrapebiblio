@@ -69,7 +69,7 @@ Saves the references to a file.
   - `references` (str): References to save.
   - `output_path` (str): Path to the output file.
 
-### `check_reference_in_semantic_scholar(reference)`
+### `check_reference(reference)`
 
 Checks if a reference is present in the Semantic Scholar database.
 

@@ -5,7 +5,7 @@ import logging
 from scrapegraphai.graphs import SearchGraph
 
 
-def check_reference_with_scrapegraph(title:str, openai_key:str):
+def check_reference_with_scrapegraph(title:str, openai_key:str)->dict:
     """
     Checks if a reference is present using ScrapeGraph.
 
