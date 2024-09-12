@@ -1,5 +1,5 @@
 [project]
-name = "Scrape-schema"
+name = "biblio"
 version = "0.0.1"
 description = "library for creating ontologies from documents"
 authors = [
@@ -9,10 +9,10 @@ authors = [
 ]
 
 dependencies = [
-    "openai==0.28.0",
-    "PyPDF2==3.0.1",
-    "requests==2.32.3",
-    "scrapegraphai==1.18.1"
+    "openai>=0.28.0",
+    "PyPDF2>=3.0.1",
+    "requests>=2.32.3",
+    "scrapegraphai>=1.18.1"
 ]
 
 license = "MIT"
@@ -64,8 +64,3 @@ dev-dependencies = [
     "-e file:.[docs]",
     "pylint>=3.2.5",
 ]
-
-[tool.rye.scripts]
-pylint-local = "pylint scrapegraphai/**/*.py"
-pylint-ci = "pylint --disable=C0114,C0115,C0116 --exit-zero scrapegraphai/**/*.py"
-update-requirements = "python 'manual deployment/autorequirements.py'"
