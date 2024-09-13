@@ -1,10 +1,10 @@
-# PDF Reference Extraction and Verification Script
+# PDF Reference Extraction and Verification Library
 
-This script is designed to extract references from a PDF file, check them against the Semantic Scholar database, and save the results to a Markdown file.
+This library is designed to extract references from a PDF file, check them against the Semantic Scholar database, and save the results to a Markdown file.
 
 ## Overview
 
-The script performs the following steps:
+The library performs the following steps:
 
 1. **Extract Text from PDF**: Reads the content of a PDF file and extracts the text.
 2. **Split Text into Chunks**: Splits the extracted text into smaller chunks to manage large texts efficiently.
@@ -12,76 +12,73 @@ The script performs the following steps:
 4. **Save References**: Saves the extracted references to a Markdown file.
 5. **Check References in Semantic Scholar**: (Optional) Checks if the extracted references are present in the Semantic Scholar database.
 
-## Dependencies
+## Installation and Setup
 
-The script uses the following Python libraries:
+To install the required dependencies, you can use the following command:
 
-- `logging`: For logging debug information.
-- `PyPDF2`: For reading and extracting text from PDF files.
-- `openai`: For interacting with the OpenAI API to extract references.
-- `requests`: For making HTTP requests to the Semantic Scholar API.
-- `json`: For handling JSON data.
-- `os`: For accessing environment variables.
-- `dotenv`: For loading environment variables from a `.env` file.
+```bash
+rye sync
+```
 
-## Environment Variables
+Ensure you have a `.env` file in the root directory of your project with the following content:
 
-The script requires the following environment variables to be set:
-
-- `OPENAI_API_KEY`: Your OpenAI API key.
-- `SEMANTIC_SCHOLARE_API_KEY`: Your Semantic Scholar API key.
-
-## Functions
-
-### `extract_text_from_pdf(pdf_path)`
-
-Extracts text from a PDF file.
-
-- **Args**:
-  - `pdf_path` (str): Path to the PDF file.
-- **Returns**:
-  - `str`: Extracted text from the PDF.
-
-### `split_text(text, max_tokens=3000)`
-
-Splits the text into chunks of a specified maximum size.
-
-- **Args**:
-  - `text` (str): Text to split.
-  - `max_tokens` (int): Maximum size of each chunk.
-- **Returns**:
-  - `list`: List of text chunks.
-
-### `extract_references(text, model="gpt-4")`
-
-Extracts references from the text using the OpenAI API.
-
-- **Args**:
-  - `text` (str): Text from which to extract references.
-- **Returns**:
-  - `str`: Extracted references.
-
-### `save_references(references, output_path)`
-
-Saves the references to a file.
-
-- **Args**:
-  - `references` (str): References to save.
-  - `output_path` (str): Path to the output file.
-
-### `check_reference(reference)`
-
-Checks if a reference is present in the Semantic Scholar database.
-
-- **Args**:
-  - `reference` (str): The reference to check.
-- **Returns**:
-  - `dict`: The response data from the Semantic Scholar API.
-
-### `main()`
-
-Main function that processes a PDF, extracts text, and saves the references.
+```plaintext
+OPENAI_API_KEY="YOUR_OPENAI_KEY"
+SEMANTIC_SCHOLARE_API_KEY="YOUR_SEMANTIC_SCHOLAR_KEY"
+```
 
 ## Usage
 
-To use the script, ensure you have the required environment variables set and run the script. The extracted references will be saved to a Markdown file named `references.md`.
+To use the library, ensure you have the required environment variables set and run the script. The extracted references will be saved to a Markdown file named `references.md`.
+
+### Example
+
+Here is an example of how to use the library:
+
+```python
+import logging
+import os
+from dotenv import load_dotenv
+from biblio.pipeline import process_pdf
+
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+
+load_dotenv()
+
+def main():
+    """
+    Main function that processes a PDF, extracts text, and saves the references.
+    """
+    pdf_path = 'test/558779153.pdf'
+    references_output_path = 'references.md'
+
+    openai_api_key = os.getenv('OPENAI_API_KEY')
+    semantic_scholar_api_key = os.getenv('SEMANTIC_SCHOLARE_API_KEY')
+
+    if not openai_api_key:
+        raise EnvironmentError("OPENAI_API_KEY environment variable not set.")
+    if not semantic_scholar_api_key:
+        raise EnvironmentError("SEMANTIC_SCHOLARE_API_KEY environment variable not set.")
+
+    logging.debug("Starting PDF processing...")
+
+    process_pdf(pdf_path, references_output_path, openai_api_key, semantic_scholar_api_key)
+
+    logging.debug("Processing completed.")
+
+if __name__ == "__main__":
+    main()
+```
+
+## Contributing
+
+We welcome contributions to this project. If you would like to contribute, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Make your changes.
+4. Submit a pull request with a detailed description of your changes.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more information.
