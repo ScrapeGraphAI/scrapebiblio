@@ -1,7 +1,7 @@
 [project]
 name = "biblio"
 version = "0.0.1"
-description = "library for creating ontologies from documents"
+description = "library for extracting reference from documents"
 authors = [
     { name = "Marco Vinciguerra", email = "mvincig11@gmail.com" },
     { name = "Marco Perini", email = "perinim.98@gmail.com" },
@@ -12,7 +12,9 @@ dependencies = [
     "openai>=0.28.0",
     "PyPDF2>=3.0.1",
     "requests>=2.32.3",
-    "scrapegraphai>=1.18.1"
+    "scrapegraphai>=1.18.1",
+    "logging>=0.4.9.6",
+    "browserbase>=0.1.0"  # Add this line
 ]
 
 license = "MIT"
@@ -21,14 +23,10 @@ homepage = "https://scrapegraphai.com/"
 repository = ""
 documentation = ""
 keywords = [
-    "scrapegraph",
-    "scrapegraphai",
-    "langchain",
     "ai",
     "artificial intelligence",
     "gpt",
     "machine learning",
-    "rag",
     "nlp",
     "natural language processing",
     "openai",
@@ -48,7 +46,6 @@ classifiers = [
 requires-python = ">=3.9,<4.0"
 
 [project.optional-dependencies]
-burr = ["burr[start]==0.22.1"]
 docs = ["sphinx==6.0", "furo==2024.5.6"]
 
 [build-system]

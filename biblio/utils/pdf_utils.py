@@ -1,10 +1,7 @@
-"""
-extract_text_from_pdf module
-"""
 import logging
 import PyPDF2
 
-def extract_text_from_pdf(pdf_path:str)->str:
+def extract_text_from_pdf(pdf_path):
     """
     Extracts text from a PDF file.
 
