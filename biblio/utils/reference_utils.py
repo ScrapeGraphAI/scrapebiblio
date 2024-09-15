@@ -3,7 +3,7 @@ import requests
 import os
 from scrapegraphai.graphs import SearchGraph
 
-def save_references(references, output_path):
+def save_references(references:str, output_path:str):
     """
     Saves the references to a file.
 
@@ -16,7 +16,7 @@ def save_references(references, output_path):
         file.write(references)
     logging.debug(f"References saved to {output_path}")
 
-def check_reference(reference, semantic_scholar_api_key, use_semantic_scholar=True):
+def check_reference(reference:str, semantic_scholar_api_key:str, use_semantic_scholar=True):
     """
     Checks if a reference is present in the Semantic Scholar database or using ScrapeGraph.
 
@@ -31,6 +31,9 @@ def check_reference(reference, semantic_scholar_api_key, use_semantic_scholar=Tr
     title = reference.split('-')[0].strip()
 
     if use_semantic_scholar:
+        if semantic_scholar_api_key is None:
+            raise ValueError('Semantic scholar api not provided')
+
         headers = {
             "x-api-key": semantic_scholar_api_key
         }
@@ -52,7 +55,7 @@ def check_reference(reference, semantic_scholar_api_key, use_semantic_scholar=Tr
     else:
         return check_reference_with_scrapegraph(title)
 
-def check_reference_with_scrapegraph(title):
+def check_reference_with_scrapegraph(title:str)->dict:
     """
     Checks if a reference is present using ScrapeGraph.
 

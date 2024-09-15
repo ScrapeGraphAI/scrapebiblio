@@ -1,7 +1,7 @@
 import logging
 import PyPDF2
 
-def extract_text_from_pdf(pdf_path):
+def extract_text_from_pdf(pdf_path:str)->str:
     """
     Extracts text from a PDF file.
 

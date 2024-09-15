@@ -1,7 +1,8 @@
 import logging
 import tiktoken
+from typing import List
 
-def split_text(text, max_tokens=3000):
+def split_text(text:str, max_tokens:int=3000)->List:
     """
     Splits the text into chunks of a specified maximum size.
 
@@ -32,9 +33,10 @@ def split_text(text, max_tokens=3000):
         chunks.append(' '.join(current_chunk))
 
     logging.debug(f"Text split into {len(chunks)} chunks.")
+
     return chunks
 
-def tokenize_text(text, chunk_size=2048):
+def tokenize_text(text:str, chunk_size:str=2048)->List:
     """
     Tokenizes the text and splits it into chunks of a specified size.
 
@@ -51,4 +53,5 @@ def tokenize_text(text, chunk_size=2048):
     tokens = tokenizer.encode(text)
     token_chunks = [tokens[i:i + chunk_size] for i in range(0, len(tokens), chunk_size)]
     logging.debug(f"Text tokenized into {len(token_chunks)} chunks.")
+
     return [tokenizer.decode(chunk) for chunk in token_chunks]

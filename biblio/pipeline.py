@@ -6,7 +6,8 @@ from .utils.reference_utils import save_references, check_reference
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def process_pdf(pdf_path, references_output_path, openai_api_key, semantic_scholar_api_key):
+def process_pdf(pdf_path:str, references_output_path:str,
+                openai_api_key:str, semantic_scholar_api_key:str):
     """
     Processes a PDF, extracts text, and saves the references.
 
@@ -29,7 +30,9 @@ def process_pdf(pdf_path, references_output_path, openai_api_key, semantic_schol
 
     for reference in references.split('\n'):
         if reference.strip():
-            result = check_reference(reference, semantic_scholar_api_key, use_semantic_scholar=False)
+            result = check_reference(reference, 
+                                     semantic_scholar_api_key, 
+                                     use_semantic_scholar=False)
             logging.debug(f"Reference check result: {result}")
 
     logging.debug("Processing completed.")

@@ -2,7 +2,7 @@ import logging
 import openai
 from .text_utils import tokenize_text
 
-def extract_references(text, model="gpt-4", api_key=None):
+def extract_references(text:str, model:str="gpt-4", api_key:str=None)->str:
     """
     Extracts references from the text using the OpenAI API.
 
@@ -37,7 +37,7 @@ def extract_references(text, model="gpt-4", api_key=None):
     logging.debug("References extracted from text.")
     return references
 
-def convert_text_to_markdown(text, temp_output_path, api_key=None):
+def convert_text_to_markdown(text:str, temp_output_path:str, api_key:str=None)->str:
     """
     Converts the entire text to Markdown using the OpenAI API.
 
@@ -59,8 +59,10 @@ def convert_text_to_markdown(text, temp_output_path, api_key=None):
         response = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant that converts text to Markdown."},
-                {"role": "user", "content": f"Convert the following text to Markdown:\n\n{chunk_text}"}
+                {"role": "system", 
+                 "content": "You are a helpful assistant that converts text to Markdown."},
+                {"role": "user", 
+                 "content": f"Convert the following text to Markdown:\n\n{chunk_text}"}
             ],
             max_tokens=4096,
             n=1,
