@@ -1,8 +1,7 @@
 import logging
 from .utils.pdf_utils import extract_text_from_pdf
-from .utils.text_utils import split_text, tokenize_text
-from .utils.openai_utils import extract_references, convert_text_to_markdown
-from .utils.reference_utils import save_references, check_reference
+from .utils.openai_utils import extract_references
+from .utils.reference_utils import check_reference
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 

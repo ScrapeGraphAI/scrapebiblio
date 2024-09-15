@@ -39,7 +39,7 @@ Here is an example of how to use the library:
 import logging
 import os
 from dotenv import load_dotenv
-from biblio.pipeline import process_pdf
+from biblio.find_reference import process_pdf
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 

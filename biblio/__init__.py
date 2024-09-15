@@ -3,4 +3,5 @@
 __init__.py module
 """
 
-from .pipeline import process_pdf
+from .find_reference import process_pdf
+from .convert_to_md import convert_to_md

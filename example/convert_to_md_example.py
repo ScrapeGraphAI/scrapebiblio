@@ -1,16 +1,8 @@
-import logging
 import os
-from dotenv import load_dotenv
-from biblio.pipeline import process_pdf
-
-logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-
-load_dotenv()
+import logging
+from biblio.convert_to_md import convert_to_md
 
 def main():
-    """
-    Main function that processes a PDF, extracts text, and saves the references.
-    """
     pdf_path = 'test/558779153.pdf'
     references_output_path = 'references.md'
 
@@ -24,7 +16,7 @@ def main():
 
     logging.debug("Starting PDF processing...")
 
-    process_pdf(pdf_path, references_output_path, openai_api_key, semantic_scholar_api_key)
+    convert_to_md(pdf_path, references_output_path, openai_api_key)
 
     logging.debug("Processing completed.")
 
