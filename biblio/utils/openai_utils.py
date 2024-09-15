@@ -67,7 +67,7 @@ def convert_text_to_markdown(text:str, temp_output_path:str, api_key:str=None)->
             max_tokens=4096,
             n=1,
             stop=None,
-            temperature=0.5,
+            temperature=0.0,
             api_key=api_key
         )
         markdown_text += response.choices[0].message.content.strip() + '\n\n'
