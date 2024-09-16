@@ -2,6 +2,7 @@ import os
 import logging
 from dotenv import load_dotenv
 from biblio.convert_to_md import convert_to_md
+from biblio.utils.read import openai_to_speech
 
 load_dotenv()
 
@@ -22,6 +23,10 @@ def main():
     convert_to_md(pdf_path, references_output_path, openai_api_key)
 
     logging.debug("Processing completed.")
+
+    file = open(references_output_path, "r").read()
+
+    openai_to_speech(openai_api_key, file, "results/res.mp3")
 
 if __name__ == "__main__":
     main()

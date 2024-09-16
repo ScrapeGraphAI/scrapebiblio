@@ -2,7 +2,7 @@ import logging
 import openai
 from .text_utils import tokenize_text
 
-def extract_references(text:str, model:str="gpt-4", api_key:str=None)->str:
+def extract_references(text:str, model:str="gpt-4o", api_key:str=None)->str:
     """
     Extracts references from the text using the OpenAI API.
 
@@ -37,14 +37,14 @@ def extract_references(text:str, model:str="gpt-4", api_key:str=None)->str:
     logging.debug("References extracted from text.")
     return references
 
-def convert_text_to_markdown(text:str, temp_output_path:str, api_key:str=None)->str:
+def convert_text_to_markdown(text:str, api_key:str, model:str="gpt-4o")->str:
     """
     Converts the entire text to Markdown using the OpenAI API.
 
     Args:
         text (str): The entire text to be converted.
-        temp_output_path (str): Path to the temporary output file.
         api_key (str): The API key for OpenAI.
+        model
 
     Returns:
         str: Text in Markdown format.
@@ -54,10 +54,13 @@ def convert_text_to_markdown(text:str, temp_output_path:str, api_key:str=None)->
     tokenized_chunks = tokenize_text(text)
     total_chunks = len(tokenized_chunks)
 
+    client = openai.OpenAI(api_key=api_key)
+
     for i, chunk_text in enumerate(tokenized_chunks):
         logging.debug(f"Starting conversion of chunk {i + 1}/{total_chunks} to Markdown...")
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
+
+        response = client.chat.completions.create(
+            model=model,
             messages=[
                 {"role": "system", 
                  "content": "You are a helpful assistant that converts text to Markdown."},
@@ -67,14 +70,10 @@ def convert_text_to_markdown(text:str, temp_output_path:str, api_key:str=None)->
             max_tokens=4096,
             n=1,
             stop=None,
-            temperature=0.0,
-            api_key=api_key
+            temperature=0.0
         )
+
         markdown_text += response.choices[0].message.content.strip() + '\n\n'
         logging.debug(f"Chunk {i + 1}/{total_chunks} converted to Markdown.")
-
-        with open(temp_output_path, 'w') as file:
-            file.write(markdown_text)
-        logging.debug(f"Temporary Markdown saved to {temp_output_path} after chunk {i + 1}/{total_chunks}.")
 
     return markdown_text

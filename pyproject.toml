@@ -9,7 +9,7 @@ authors = [
 ]
 
 dependencies = [
-    "openai>=0.28.0",
+    "openai>=1.45.0",
     "PyPDF2>=3.0.1",
     "requests>=2.32.3",
     "scrapegraphai>=1.18.1",
@@ -31,8 +31,6 @@ keywords = [
     "natural language processing",
     "openai",
     "scraping",
-    "web scraping",
-    "web scraping library",
     "web scraping tool",
     "webscraping",
     "graph",

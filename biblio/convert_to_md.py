@@ -14,9 +14,9 @@ def convert_to_md(pdf_path, references_output_path, openai_api_key):
 
     pdf_text = extract_text_from_pdf(pdf_path)
 
-    md_text = convert_text_to_markdown(pdf_text, pdf_path, openai_api_key)
+    md_text = convert_text_to_markdown(pdf_text, openai_api_key)
 
-    with open(references_output_path + '.md', 'w') as f:
+    with open(references_output_path, 'w') as f:
         f.write(md_text)
 
     logging.info("PDF processed and converted to Markdown format successfully.")
