@@ -3,7 +3,7 @@ import requests
 import os
 from scrapegraphai.graphs import SearchGraph
 
-def save_references(references:str, output_path:str):
+def save_references(references: str, output_path: str):
     """
     Saves the references to a file.
 
@@ -16,46 +16,112 @@ def save_references(references:str, output_path:str):
         file.write(references)
     logging.debug(f"References saved to {output_path}")
 
-def check_reference(reference:str, semantic_scholar_api_key:str, use_semantic_scholar=True):
+def check_reference(reference: str, **kwargs):
     """
-    Checks if a reference is present in the Semantic Scholar database or using ScrapeGraph.
+    Checks if a reference is present in various databases.
 
     Args:
         reference (str): The reference to check.
-        semantic_scholar_api_key (str): The API key for Semantic Scholar.
-        use_semantic_scholar (bool): Whether to use Semantic Scholar or ScrapeGraph.
+        kwargs: Additional API keys and configurations for other sources.
 
     Returns:
-        dict: The response data from the Semantic Scholar API or ScrapeGraph.
+        dict: The response data from the APIs.
     """
     title = reference.split('-')[0].strip()
+    return check_reference_with_other_sources(title, **kwargs)
 
-    if use_semantic_scholar:
-        if semantic_scholar_api_key is None:
-            raise ValueError('Semantic scholar api not provided')
+def check_reference_with_other_sources(title: str, **kwargs):
+    """
+    Checks if a reference is present using other sources.
 
-        headers = {
-            "x-api-key": semantic_scholar_api_key
+    Args:
+        title (str): The title of the reference to check.
+        kwargs: Additional API keys and configurations for other sources.
+
+    Returns:
+        dict: The response data from the other sources.
+    """
+    logging.debug(f"Checking reference with other sources: {title}")
+
+    results = {}
+
+    if 'semantic_scholar_api_key' in kwargs and kwargs.get('use_semantic_scholar', True):
+        results['Semantic Scholar'] = check_reference_with_semantic_scholar(title, kwargs['semantic_scholar_api_key'])
+
+    if 'core_api_key' in kwargs:
+        results['CORE'] = check_reference_with_core(title, kwargs['core_api_key'])
+
+    if 'base_api_key' in kwargs:
+        results['BASE'] = check_reference_with_base(title, kwargs['base_api_key'])
+
+    # Add similar checks for other sources like PubMed Central, Science.gov, ResearchGate, Consensus, RefSeek
+
+    return results
+
+def check_reference_with_semantic_scholar(title: str, api_key: str) -> dict:
+    """
+    Checks if a reference is present in the Semantic Scholar database.
+
+    Args:
+        title (str): The title of the reference to check.
+        api_key (str): The API key for Semantic Scholar.
+
+    Returns:
+        dict: The response data from the Semantic Scholar API.
+    """
+    headers = {
+        "x-api-key": api_key
+    }
+
+    response = requests.post(
+        'https://api.semanticscholar.org/graph/v1/paper/batch',
+        headers=headers,
+        json={
+            "ids": [title],
+            "fields": "referenceCount,citationCount,title"
         }
+    )
 
-        response = requests.post(
-            'https://api.semanticscholar.org/graph/v1/paper/batch',
-            headers=headers,
-            json={
-                "ids": [title],
-                "fields": "referenceCount,citationCount,title"
-            }
-        )
-
-        if response.status_code == 200:
-            return response.json()
-        else:
-            logging.debug(f"Reference not found in Semantic Scholar: {title}")
-            return check_reference_with_scrapegraph(title)
+    if response.status_code == 200:
+        return response.json()
     else:
-        return check_reference_with_scrapegraph(title)
+        return None
 
-def check_reference_with_scrapegraph(title:str)->dict:
+def check_reference_with_core(title: str, api_key: str) -> dict:
+    """
+    Checks if a reference is present using CORE.
+
+    Args:
+        title (str): The title of the reference to check.
+        api_key (str): The API key for CORE.
+
+    Returns:
+        dict: The response data from the CORE API.
+    """
+    response = requests.get(f'https://core.ac.uk/api-v2/articles/search/{title}?apiKey={api_key}')
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+
+def check_reference_with_base(title: str, api_key: str) -> dict:
+    """
+    Checks if a reference is present using BASE.
+
+    Args:
+        title (str): The title of the reference to check.
+        api_key (str): The API key for BASE.
+
+    Returns:
+        dict: The response data from the BASE API.
+    """
+    response = requests.get(f'https://api.base-search.net/cgi-bin/BaseHttpSearchInterface.fcgi?func=performSearch&query={title}&format=json&apiKey={api_key}')
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+
+def check_reference_with_scrapegraph(title: str) -> dict:
     """
     Checks if a reference is present using ScrapeGraph.
 
