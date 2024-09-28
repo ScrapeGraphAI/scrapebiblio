@@ -64,7 +64,7 @@ def convert_text_to_markdown(text:str, api_key:str, model:str="gpt-4o")->str:
             messages=[
                 {"role": "system", 
                  "content": "You are a helpful assistant that converts text to Markdown."},
-                {"role": "user", 
+                {"role": "user",
                  "content": f"""Convert the following text to Markdown:\n
                  regarding the images, please provide a description of it \n
                  {chunk_text}"""
