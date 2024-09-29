@@ -1,3 +1,6 @@
+"""
+openai_utils module
+"""
 import logging
 import openai
 from .text_utils import tokenize_text
@@ -20,7 +23,8 @@ def extract_references(text:str, model:str="gpt-4o", api_key:str=None)->str:
     response = client.chat.completions.create(
         model=model,
         messages=[
-            {"role": "system", "content": "You are a helpful assistant that extracts references from text."},
+            {"role": "system", "content": """You are a helpful
+                                            assistant that extracts references from text."""},
             {"role": "user", "content": f"""Extract all references from the following
                                             text and format them in a consistent manner: \n{text}\n.
                                             Format each reference as:\n

@@ -1,6 +1,9 @@
+"""
+text_utils module
+"""
 import logging
-import tiktoken
 from typing import List
+import tiktoken
 
 def split_text(text:str, max_tokens:int=3000)->List:
     """
@@ -47,7 +50,7 @@ def tokenize_text(text:str, chunk_size:str=2048)->List:
     Returns:
         list: List of tokenized text chunks.
     """
-    
+
     logging.debug("Starting text tokenization...")
     tokenizer = tiktoken.get_encoding("cl100k_base")
     tokens = tokenizer.encode(text)

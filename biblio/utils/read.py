@@ -1,6 +1,9 @@
+"""
+read module
+"""
+import os
 import openai
 from gtts import gTTS
-import os
 
 def read_text_from_api(api_key: str, input_text: str, model: str = "gpt-4"):
     """

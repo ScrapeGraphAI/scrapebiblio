@@ -1,6 +1,9 @@
+"""
+reference module
+"""
+import os
 import logging
 import requests
-import os
 from scrapegraphai.graphs import SearchGraph
 
 def save_references(references: str, output_path: str):
@@ -46,15 +49,14 @@ def check_reference_with_other_sources(title: str, **kwargs):
     results = {}
 
     if 'semantic_scholar_api_key' in kwargs and kwargs.get('use_semantic_scholar', True):
-        results['Semantic Scholar'] = check_reference_with_semantic_scholar(title, kwargs['semantic_scholar_api_key'])
+        results['Semantic Scholar'] = check_reference_with_semantic_scholar(title,
+                                                                            kwargs['semantic_scholar_api_key'])
 
     if 'core_api_key' in kwargs:
         results['CORE'] = check_reference_with_core(title, kwargs['core_api_key'])
 
     if 'base_api_key' in kwargs:
         results['BASE'] = check_reference_with_base(title, kwargs['base_api_key'])
-
-    # Add similar checks for other sources like PubMed Central, Science.gov, ResearchGate, Consensus, RefSeek
 
     return results
 

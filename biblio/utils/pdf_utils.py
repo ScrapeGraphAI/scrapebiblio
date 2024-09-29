@@ -1,5 +1,8 @@
+"""
+pdf_utils module
+"""
 import logging
-import fitz  # PyMuPDF
+import fitz
 
 def extract_text_from_pdf(pdf_path: str) -> str:
     """
@@ -28,7 +31,8 @@ def extract_text_from_pdf(pdf_path: str) -> str:
 
     if not extracted_text.strip():
         logging.warning("The PDF might be a PDF Package or contain special formats.")
-        extracted_text = "Unable to extract text from the PDF. It may be a PDF Package or contain embedded files."
+        extracted_text = """Unable to extract text from the PDF.
+                            It may be a PDF Package or contain embedded files."""
 
     logging.debug("Text extraction completed.")
     return extracted_text
