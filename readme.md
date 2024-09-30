@@ -1,11 +1,16 @@
 # ScrapeBiblio: PDF Reference Extraction and Verification Library
 
+## Powered by Scrapegraphai
+![Drag Racing](docs/scrapebiblio.png)
+
+
 This library is designed to extract references from a PDF file, check them against the Semantic Scholar database, and save the results to a Markdown file.
 
 ## Overview
 
 The library performs the following steps:
 
+### First usage: extracting references from 
 1. **Extract Text from PDF**: Reads the content of a PDF file and extracts the text.
 2. **Split Text into Chunks**: Splits the extracted text into smaller chunks to manage large texts efficiently.
 3. **Extract References**: Uses the OpenAI API to extract references from the text.
