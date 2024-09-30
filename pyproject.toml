@@ -1,6 +1,6 @@
 [project]
 name = "scrapebiblio"
-version = "0.0.1"
+version = "0.0.3"
 description = "library for extracting reference from documents"
 authors = [
     { name = "Marco Vinciguerra", email = "mvincig11@gmail.com" },
@@ -13,9 +13,10 @@ dependencies = [
     "PyPDF2>=3.0.1",
     "requests>=2.32.3",
     "scrapegraphai>=1.18.1",
-    "logging>=0.4.9.6",
     "browserbase>=0.1.0",
-    "PyMuPDF>=1.24.10"
+    "PyMuPDF>=1.24.10",
+    "python-dotenv==1.0.1",
+    "gTTS>=2.5.3"
 ]
 
 license = "MIT"

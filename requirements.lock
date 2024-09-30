@@ -43,6 +43,8 @@ certifi==2024.8.30
     # via requests
 charset-normalizer==3.3.2
     # via requests
+click==8.1.7
+    # via gtts
 dataclasses-json==0.6.7
     # via langchain-community
 dill==0.3.8
@@ -92,6 +94,8 @@ grpcio==1.66.1
     # via grpcio-status
 grpcio-status==1.62.3
     # via google-api-core
+gtts==2.5.3
+    # via scrapebiblio
 h11==0.14.0
     # via httpcore
 html2text==2024.2.26
@@ -151,8 +155,6 @@ langsmith==0.1.120
     # via langchain
     # via langchain-community
     # via langchain-core
-logging==0.4.9.6
-    # via scrapebiblio
 lxml==5.3.0
     # via free-proxy
 marshmallow==3.22.0
@@ -230,6 +232,7 @@ python-dateutil==2.9.0.post0
     # via botocore
     # via pandas
 python-dotenv==1.0.1
+    # via scrapebiblio
     # via scrapegraphai
 pytz==2024.2
     # via pandas
@@ -243,6 +246,7 @@ regex==2024.9.11
 requests==2.32.3
     # via free-proxy
     # via google-api-core
+    # via gtts
     # via huggingface-hub
     # via langchain
     # via langchain-community
