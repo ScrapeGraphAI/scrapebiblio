@@ -1,7 +1,7 @@
 import os
 import logging
 from dotenv import load_dotenv
-from biblio.convert_to_md import convert_to_md
+from scrapebiblio.convert_to_md import convert_to_md
 
 load_dotenv()
 

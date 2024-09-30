@@ -1,8 +1,8 @@
 import os
 import logging
 from dotenv import load_dotenv
-from biblio.convert_to_md import convert_to_md
-from biblio.utils.read import openai_to_speech
+from scrapebiblio.convert_to_md import convert_to_md
+from scrapebiblio.utils.read import openai_to_speech
 
 load_dotenv()
 

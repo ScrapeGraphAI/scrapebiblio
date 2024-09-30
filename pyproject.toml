@@ -1,5 +1,5 @@
 [project]
-name = "biblio"
+name = "scrapebiblio"
 version = "0.0.1"
 description = "library for extracting reference from documents"
 authors = [

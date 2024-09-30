@@ -1,7 +1,7 @@
 import logging
 import os
 from dotenv import load_dotenv
-from biblio.find_reference import process_pdf
+from scrapebiblio.find_reference import process_pdf
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 

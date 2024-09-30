@@ -1,4 +1,4 @@
-# PDF Reference Extraction and Verification Library
+# ScrapeBiblio: PDF Reference Extraction and Verification Library
 
 This library is designed to extract references from a PDF file, check them against the Semantic Scholar database, and save the results to a Markdown file.
 
@@ -17,7 +17,7 @@ The library performs the following steps:
 To install the required dependencies, you can use the following command:
 
 ```bash
-rye sync
+pip install scrapebiblio
 ```
 
 Ensure you have a `.env` file in the root directory of your project with the following content:
