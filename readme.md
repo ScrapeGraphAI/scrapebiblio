@@ -2,7 +2,7 @@
 
 ## Powered by Scrapegraphai
 ![Drag Racing](docs/scrapebiblio.png)
-
+[![Downloads](https://static.pepy.tech/badge/scrapebiblio)](https://pepy.tech/project/scrapebiblio)
 
 This library is designed to extract references from a PDF file, check them against the Semantic Scholar database, and save the results to a Markdown file.
 
