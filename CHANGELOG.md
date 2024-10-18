@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/ScrapeGraphAI/scrapebiblio/compare/v1.0.0...v1.1.0) (2024-10-18)
+
+
+### Features
+
+* update prompt ([407ebfd](https://github.com/ScrapeGraphAI/scrapebiblio/commit/407ebfda424888279229cee4ebcd6d616ee7af92))
+
 ## 1.0.0 (2024-10-07)
 
 
