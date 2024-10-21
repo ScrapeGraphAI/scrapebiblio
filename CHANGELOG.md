@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/ScrapeGraphAI/scrapebiblio/compare/v1.1.0...v1.2.0) (2024-10-21)
+
+
+### Features
+
+* refactoring of the code ([f2e3cb7](https://github.com/ScrapeGraphAI/scrapebiblio/commit/f2e3cb7773c1a42e96ea93b388bf5fdbe2cdb034))
+
 ## [1.1.0](https://github.com/ScrapeGraphAI/scrapebiblio/compare/v1.0.0...v1.1.0) (2024-10-18)
 
 

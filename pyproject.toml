@@ -1,6 +1,6 @@
 [project]
 name = "scrapebiblio"
-version = "1.1.0"
+version = "1.2.0"
 description = "library for extracting reference from documents"
 authors = [
     { name = "Marco Vinciguerra", email = "mvincig11@gmail.com" },
